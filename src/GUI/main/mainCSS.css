@@ -1,0 +1,13 @@
+.root{
+    -fx-background-color: #ffa2ff;
+    -fx-font-size: 12;
+    -fx-font-style: italic;
+}
+
+
+#nextButton{
+    -fx-font-style: italic;
+    -fx-font-size: 20;
+    -fx-background-color: #ab23c1;
+    -fx-text-fill: #ffffff;
+}

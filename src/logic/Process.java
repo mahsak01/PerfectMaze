@@ -1,19 +1,22 @@
+package logic;
+
+import GUI.ShowMaze;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
-public class Main {
-    static int height, width;
-    static String[][] board;
-    static ArrayList<Point> seen;
-    static ArrayList<Point> remaining;
-    static ArrayList<Integer> selectDirection = new ArrayList<>();
+public class Process {
+    public static int height, width;
+    public static String[][] board;
+    public static ArrayList<Point> seen;
+    public static ArrayList<Point> remaining;
+    public static ArrayList<Integer> selectDirection = new ArrayList<>();
 
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        height =scanner.nextInt();
-        width =scanner.nextInt();
+    public static void process(Stage primaryStage, int height, int width) {
+        Process.height = height;
+        Process.width = width;
         createBoards();
 
         int randInt=new Random().nextInt((height*width));
@@ -26,6 +29,8 @@ public class Main {
             selectDirection.clear();
         }
 
+
+        // print board
         for (int i = 0; i < width+2; i++) {
             for (int j = 0; j < height+2; j++) {
                 System.out.print(board[i][j]+" ");
@@ -33,6 +38,7 @@ public class Main {
             System.out.println();
         }
 
+        new ShowMaze().show(primaryStage);
     }
     public static void createBoards(){
         board = new String[width+2][height+2];
@@ -62,7 +68,7 @@ public class Main {
             if ( board[point.i][point.j]=="1")
                  board[point.i][point.j]=String.valueOf(selectDirection.get(randInt));
             else
-                board[point.i][point.j]+=","+String.valueOf(selectDirection.get(randInt));
+                board[point.i][point.j]+=","+selectDirection.get(randInt);
 
             addPoint(selectDirection.get(randInt),point.i ,point.j);
         }
@@ -128,12 +134,3 @@ public class Main {
     }
 }
 
-class Point {
-    int i;
-    int j;
-
-    public Point(int i, int j) {
-        this.i = i;
-        this.j = j;
-    }
-}
