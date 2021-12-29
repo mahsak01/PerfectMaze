@@ -1,6 +1,7 @@
 package GUI;
 
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -9,15 +10,18 @@ import logic.Process;
 
 public class ShowMaze {
     public void show(Stage primaryStage) {
-        GridPane gridPane = new GridPane();
 
+        ScrollPane scroll = new ScrollPane();
+
+        GridPane gridPane = new GridPane();
+        scroll.setContent(gridPane);
         for (int i = 0; i < Process.width + 2; i++) {
             for (int j = 0; j < Process.height + 2; j++) {
                 gridPane.add(makeCell(i, j), i, j);
             }
         }
 
-        primaryStage.setScene(new Scene(gridPane, 700, 800));
+        primaryStage.setScene(new Scene(scroll));
     }
 
     public GridPane makeCell(int superI, int superJ) {
@@ -79,16 +83,15 @@ public class ShowMaze {
             if (direction.contains("5")) {
                 pane.add(new Rectangle(33, 4, Color.WHITE), 1, 0);
             }
+            check(superI, superJ, pane);
+
         }
 
-        check(superI, superJ, pane);
 
         return pane;
     }
 
     public void check(int i, int j, GridPane pane) {
-        if (i > 0 && i < Process.width) {
-            if (j > 0 && j < Process.height) {
                 if (Process.board[i + 1][j].contains("2")) {
                     pane.add(new Rectangle(4, 33, Color.WHITE), 2, 1);
                 }
@@ -104,7 +107,5 @@ public class ShowMaze {
                 if (Process.board[i][j + 1].contains("5")) {
                     pane.add(new Rectangle(33, 4, Color.WHITE), 1, 2);
                 }
-            }
-        }
     }
 }
